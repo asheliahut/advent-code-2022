@@ -9,7 +9,9 @@
     "day2:1": "ts-node day2/rockPaperScissors.ts",
     "day2:2": "ts-node day2/rockPaperScissorsPart2.ts",
     "day3:1": "ts-node day3/rucksackPart1.ts",
-    "day3:2": "ts-node day3/rucksackPart2.ts"
+    "day3:2": "ts-node day3/rucksackPart2.ts",
+    "day4:1": "ts-node day4/campCleanupPart1.ts",
+    "day4:2": "ts-node day4/campCleanupPart2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",
