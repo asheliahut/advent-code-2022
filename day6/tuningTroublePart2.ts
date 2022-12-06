@@ -20,12 +20,12 @@ const main = async () => {
   let output: string = "";
 
 
-  for (let i = 13; i < line.length; i++) {
+  for (let i = 14; i < line.length; i++) {
     // keep a buffer of 4 characters
-    const buffer = line.substring(i - 13, i + 1);
+    const buffer = line.substring(i - 14, i);
     //console.log(buffer);
     if (!containsDuplicateCharacter(buffer)) {
-      packetStart = i + 1;
+      packetStart = i;
       break;
     }  
   }
