@@ -13,7 +13,9 @@
     "day4:1": "ts-node day4/campCleanupPart1.ts",
     "day4:2": "ts-node day4/campCleanupPart2.ts",
     "day5:1": "ts-node day5/supplyStacksPart1.ts",
-    "day5:2": "ts-node day5/supplyStacksPart2.ts"
+    "day5:2": "ts-node day5/supplyStacksPart2.ts",
+    "day6:1": "ts-node day6/tuningTroublePart1.ts",
+    "day6:2": "ts-node day6/tuningTroublePart2.ts" 
   },
   "keywords": [],
   "author": "Ashley Hutson",
