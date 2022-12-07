@@ -15,7 +15,9 @@
     "day5:1": "ts-node day5/supplyStacksPart1.ts",
     "day5:2": "ts-node day5/supplyStacksPart2.ts",
     "day6:1": "ts-node day6/tuningTroublePart1.ts",
-    "day6:2": "ts-node day6/tuningTroublePart2.ts" 
+    "day6:2": "ts-node day6/tuningTroublePart2.ts", 
+    "day7:1": "ts-node day7/noSpacePart1.ts",
+    "day7:2": "ts-node day7/noSpacePart2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",
