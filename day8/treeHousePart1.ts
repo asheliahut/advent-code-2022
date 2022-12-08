@@ -144,7 +144,7 @@ const main = async () => {
   }
 
   // start at the top left corner and traverse to the bottom left corner
-  // count the trees that are visable from the left
+  // count the trees that are visable from the bottom
   x = 1;
   y = matrix.length - 2
   while (x < matrix[0].length - 1) {

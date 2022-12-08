@@ -77,7 +77,7 @@ function getScenicScoreFromLeft(x: number, y: number, matrix: Tree[][]): number 
 
     if (tree.number < curLargestTreeNumberFromLeft) {
       scenicScore++;
-    }else {
+    } else {
       scenicScore++;
       break;
     }
@@ -98,7 +98,7 @@ function getScenicScoreFromTop(x: number, y: number, matrix: Tree[][]): number {
 
     if (tree.number < curLargestTreeNumberFromTop) {
       scenicScore++;
-    }else {
+    } else {
       scenicScore++;
       break;
     }
@@ -119,7 +119,7 @@ function getScenicScoreFromRight(x: number, y: number, matrix: Tree[][]): number
 
     if (tree.number < curLargestTreeNumberFromRight) {
       scenicScore++;
-    }else {
+    } else {
       scenicScore++;
       break;
     }
@@ -140,7 +140,7 @@ function getScenicScoreFromBottom(x: number, y: number, matrix: Tree[][]): numbe
 
     if (tree.number < curLargestTreeNumberFromBottom) {
       scenicScore++;
-    }else {
+    } else {
       scenicScore++;
       break;
     }
@@ -150,7 +150,5 @@ function getScenicScoreFromBottom(x: number, y: number, matrix: Tree[][]): numbe
 
   return scenicScore;
 }
-
-
 
 main();
