@@ -6,15 +6,21 @@
 // advent of code 2022 day 1 part 2
 
 import fs from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
-  const input = await fs.promises.readFile(path.join(__dirname, "calorieInput.txt"), "utf-8");
+  const input = await fs.promises.readFile(
+    path.join(__dirname, "calorieInput.txt"),
+    "utf-8"
+  );
   return input;
 };
 
 const writeOutput = async (output: string) => {
-  await fs.promises.writeFile(path.join(__dirname, "calorieOutput.txt"), output);
+  await fs.promises.writeFile(
+    path.join(__dirname, "calorieOutput.txt"),
+    output
+  );
 };
 
 const main = async () => {

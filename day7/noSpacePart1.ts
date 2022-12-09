@@ -2,7 +2,7 @@
 // advent of code 2022 day 7 part 1
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
@@ -12,15 +12,14 @@ const writeOutput = async (output: string) => {
   await writeFileSync(path.join(__dirname, "noSpacePart1.txt"), output);
 };
 
-
 const main = async () => {
   const input = await readInput();
   const lines = input.split("\n");
   let dirFileSizeLessThan100000 = 0;
   let output: string = "";
-  
+
   // create a virtual disk
-  // the outermost directory is / 
+  // the outermost directory is /
   // a line can contain a directory or a file or a command
   // a command line will always start with a $
   // a directory can contain a directory or a file
@@ -55,7 +54,7 @@ const main = async () => {
           currentDir = currentDir.parent;
         } else if (dirName === "/") {
           currentDir = dir;
-        }else {
+        } else {
           // go to the child directory
           const childDir = currentDir.children[dirName];
           if (childDir) {
@@ -103,11 +102,6 @@ const main = async () => {
     return totalFileSize;
   };
   traverseDir(currentDir);
-  
-  
-  
-
-  
 
   output = `Directory Combined File Size: ${dirFileSizeLessThan100000}`;
   console.log(output);

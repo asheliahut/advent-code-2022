@@ -2,14 +2,17 @@
 // advent of code 2022 day 5 part 2
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
 };
 
 const writeOutput = async (output: string) => {
-  await writeFileSync(path.join(__dirname, "supplyStackOutputPart2.txt"), output);
+  await writeFileSync(
+    path.join(__dirname, "supplyStackOutputPart2.txt"),
+    output
+  );
 };
 
 // create a stack class
@@ -66,7 +69,6 @@ class Stack {
   }
 }
 
-
 const main = async () => {
   const input = await readInput();
   const lines = input.split("\n");
@@ -76,10 +78,10 @@ const main = async () => {
   const stacks: Stack[] = [];
   let output: string = "";
   // parse the following into a data structure
-  //     [D]    
-  // [N] [C]    
+  //     [D]
+  // [N] [C]
   // [Z] [M] [P]
-  //  1   2   3 
+  //  1   2   3
 
   // create a stack for each number
   // loop through the input splitting on new lines
@@ -93,16 +95,18 @@ const main = async () => {
       const numbers = lines[i - 1].split(" ");
       // loop over numbers and create a stack for each one
       // filter numbers to remove empty strings
-      numbers.filter((n) => n !== "").forEach((number) => {
-        const stack = new Stack();
-        stacks.push(stack);
-      });
+      numbers
+        .filter((n) => n !== "")
+        .forEach((number) => {
+          const stack = new Stack();
+          stacks.push(stack);
+        });
     }
   }
 
   // loop through the input again
   // if a line starts with a blank space or the first character present in a line is not [ then stop looping
-  // parse the line with a letter surrounded by brackets in each column 
+  // parse the line with a letter surrounded by brackets in each column
   for (let i = stackBottomIndex; i >= 0; i--) {
     if (!lines[i].trim().startsWith("[")) {
       break;
@@ -121,7 +125,7 @@ const main = async () => {
 
   // console.log(stacks);
   // console.log(stacks.length);
-  
+
   // move 1 from 2 to 1
   for (let i = movesBeginIndex; i < lines.length; i++) {
     const move = lines[i];
@@ -144,7 +148,6 @@ const main = async () => {
   stacks.forEach((stack) => {
     topCrates += stack.peek();
   });
-  
 
   output = `Top Crates: ${topCrates}`;
   console.log(output);

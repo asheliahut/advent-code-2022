@@ -2,7 +2,7 @@
 // advent of code 2022 day 8 part 1
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   // return await readFileSync(path.join(__dirname, "example.txt"), "utf8");
@@ -30,7 +30,7 @@ const main = async () => {
     const trees = line.split("").map((n) => {
       return {
         number: parseInt(n),
-        seen: false
+        seen: false,
       };
     });
     matrix.push(trees);
@@ -39,7 +39,6 @@ const main = async () => {
   // traverse the matrix and assume the trees are of the height of each number
   // now determine how many trees inwards to the matrix are visable from outside looking inwards towards the edges of the matrix
   // the trees outside the grid are the trees that are not visable from outside the grid
-
 
   // preset variables
   let treesOutsideGrid = 0;
@@ -70,13 +69,11 @@ const main = async () => {
     }
   }
 
-
-
   // start at the top left corner and traverse to the top right corner
   // count the trees that are visable from the left
   let x = 1;
   let y = 1;
-  
+
   while (y < matrix.length - 1) {
     let curLargestTreeNumberFromLeft = matrix[y][0].number;
     while (x < matrix[0].length - 1) {
@@ -99,12 +96,12 @@ const main = async () => {
   // count the trees that are visable from the top
   x = matrix[0].length - 2;
   y = 1;
-  
+
   while (x >= 1) {
     let curLargestTreeNumberFromTop = matrix[0][x].number;
     while (y < matrix.length - 1) {
       const tree = matrix[y][x];
-      
+
       if (tree.number > curLargestTreeNumberFromTop) {
         curLargestTreeNumberFromTop = tree.number;
 
@@ -118,7 +115,6 @@ const main = async () => {
     y = 1;
     x--;
   }
-  
 
   // start at the bottom right corner and traverse to the bottom left corner
   // count the trees that are visable from the bottom
@@ -128,7 +124,7 @@ const main = async () => {
     let curLargestTreeNumberFromRight = matrix[y][matrix[0].length - 1].number;
     while (x >= 1) {
       const tree = matrix[y][x];
-      
+
       if (tree.number > curLargestTreeNumberFromRight) {
         curLargestTreeNumberFromRight = tree.number;
 
@@ -146,7 +142,7 @@ const main = async () => {
   // start at the top left corner and traverse to the bottom left corner
   // count the trees that are visable from the bottom
   x = 1;
-  y = matrix.length - 2
+  y = matrix.length - 2;
   while (x < matrix[0].length - 1) {
     let curLargestTreeNumberFromBottom = matrix[matrix.length - 1][x].number;
     while (y >= 1) {
@@ -174,7 +170,5 @@ const main = async () => {
 // the trees outside the grid are the trees that are not visable from outside the grid
 // a matrix is composed of a 2d array of numbers which represent trees as their height
 // a tree is visible from outside the grid as lon as it is taller than the trees from the edge inward
-
-
 
 main();

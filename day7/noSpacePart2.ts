@@ -2,7 +2,7 @@
 // advent of code 2022 day 7 part 2
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
@@ -12,14 +12,13 @@ const writeOutput = async (output: string) => {
   await writeFileSync(path.join(__dirname, "noSpacePart2.txt"), output);
 };
 
-
 const main = async () => {
   const input = await readInput();
   const lines = input.split("\n");
   let output: string = "";
-  
+
   // create a virtual disk
-  // the outermost directory is / 
+  // the outermost directory is /
   // a line can contain a directory or a file or a command
   // a command line will always start with a $
   // a directory can contain a directory or a file
@@ -52,7 +51,7 @@ const main = async () => {
           currentDir = currentDir.parent;
         } else if (dirName === "/") {
           // do nothing as we are already at the root directory
-        }else {
+        } else {
           // go to the child directory
           const childDir = currentDir.children[dirName];
           if (childDir) {
@@ -66,7 +65,12 @@ const main = async () => {
       if (parts[0] === "dir") {
         // this is a directory
         const dirName = parts[1];
-        const newDir = { name: dirName, parent: currentDir, children: {}, size: 0 };
+        const newDir = {
+          name: dirName,
+          parent: currentDir,
+          children: {},
+          size: 0,
+        };
         currentDir.children[dirName] = newDir;
       } else {
         // this is a file
@@ -77,7 +81,7 @@ const main = async () => {
         currentDir.size += size;
         const originalDir = currentDir;
 
-        while(currentDir.parent) {
+        while (currentDir.parent) {
           currentDir = currentDir.parent;
           currentDir.size += size;
         }
@@ -90,7 +94,7 @@ const main = async () => {
   const freeSpace = 70000000 - dir.size;
   const freeSpaceNeeded = 30000000 - freeSpace;
   console.log(`free space needed ${freeSpaceNeeded}`);
-  
+
   const potentialDirsToDelete: any[] = [];
   const getLargestForFreeSpace = (curDir: any) => {
     const children = curDir.children;
@@ -121,7 +125,7 @@ const main = async () => {
   let smallestInPotentialToDelete = potentialDirsToDelete[0];
   for (let i = 1; i < potentialDirsToDelete.length; i++) {
     const potentialDir = potentialDirsToDelete[i];
-    if (potentialDir.size < smallestInPotentialToDelete.size) { 
+    if (potentialDir.size < smallestInPotentialToDelete.size) {
       smallestInPotentialToDelete = potentialDir;
     }
   }

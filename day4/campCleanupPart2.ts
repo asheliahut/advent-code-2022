@@ -2,14 +2,17 @@
 // advent of code 2022 day 4 part 2
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
 };
 
 const writeOutput = async (output: string) => {
-  await writeFileSync(path.join(__dirname, "CampCleanupOutputPart2.txt"), output);
+  await writeFileSync(
+    path.join(__dirname, "CampCleanupOutputPart2.txt"),
+    output
+  );
 };
 
 const main = async () => {
@@ -41,8 +44,6 @@ const main = async () => {
       total++;
       return;
     }
-    
-
   });
 
   output = `Total: ${total}`;

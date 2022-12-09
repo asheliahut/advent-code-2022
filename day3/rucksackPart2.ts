@@ -2,7 +2,7 @@
 // advent of code 2022 day 3 part 1
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
@@ -15,7 +15,7 @@ const writeOutput = async (output: string) => {
 // create lookup object for points where
 // a-z = 1-26 and A-Z = 27-52
 const createLookup = () => {
-  const lookup: {string: number} | any = {};
+  const lookup: { string: number } | any = {};
   for (let i = 1; i <= 26; i++) {
     lookup[String.fromCharCode(i + 96)] = i;
   }
@@ -47,7 +47,9 @@ const main = async () => {
       lines[2].split("").forEach((char) => line3Set.add(char));
       // check for duplicates
       const duplicates = new Set([...line1Set].filter((x) => line2Set.has(x)));
-      const duplicates2 = new Set([...duplicates].filter((x) => line3Set.has(x)));
+      const duplicates2 = new Set(
+        [...duplicates].filter((x) => line3Set.has(x))
+      );
       duplicates2.forEach((char: string) => (total += lookup[char]));
 
       // reset counter and lines

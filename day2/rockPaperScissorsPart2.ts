@@ -6,7 +6,7 @@
 // advent of code 2022 day 2 part 1
 
 import { readFileSync, writeFileSync } from "fs";
-import * as path from 'path';
+import * as path from "path";
 
 const readInput = async () => {
   return await readFileSync(path.join(__dirname, "puzzleInput.txt"), "utf8");
@@ -21,13 +21,13 @@ enum SCORING {
   Rock = 1,
   Paper = 2,
   Scissors = 3,
-};
+}
 // create map of values
 enum RPS {
   A = "Rock",
   B = "Paper",
   C = "Scissors",
-};
+}
 
 enum RPSPlayer {
   X = "lose",
@@ -61,15 +61,16 @@ const main = async () => {
     const player = RPSPlayer[playerInput as keyof typeof RPSPlayer];
     const elf = RPS[elfInput as keyof typeof RPS];
     if (player === "win") {
-      playerScore += SCORING[RPSWin[elf as keyof typeof RPSWin] as keyof typeof SCORING];
+      playerScore +=
+        SCORING[RPSWin[elf as keyof typeof RPSWin] as keyof typeof SCORING];
       playerScore += 6;
     } else if (player === "lose") {
-      playerScore += SCORING[RPSLose[elf as keyof typeof RPSLose] as keyof typeof SCORING];
+      playerScore +=
+        SCORING[RPSLose[elf as keyof typeof RPSLose] as keyof typeof SCORING];
     } else {
       playerScore += SCORING[elf as keyof typeof SCORING];
       playerScore += 3;
     }
-    
   });
 
   output = `Player score: ${playerScore}`;
