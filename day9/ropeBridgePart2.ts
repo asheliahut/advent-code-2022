@@ -31,7 +31,7 @@ const main = async () => {
   let tailKnot: RopeTail = { x: 0, y: 0, seenXY: new Set() };
   // preset the 0,0 coordinate to be seen
   tailKnot.seenXY.add(JSON.stringify({ x: 0, y: 0 }));
-  const knots: RopeKnot[] = [
+  let knots: RopeKnot[] = [
     { x: 0, y: 0 },
     { x: 0, y: 0 },
     { x: 0, y: 0 },
@@ -57,61 +57,25 @@ const main = async () => {
       case "R":
         for (let j = 0; j < distance; j++) {
           knots[0].x++;
-          for (let k = 1; k < knots.length; k++) {
-            if (isKnotAdjacentToPrevious(knots[k - 1], knots[k])) {
-              break;
-            }
-            knots[k] = moveKnot(knots[k - 1], knots[k]);
-          }
-          // check if the tail is no longer next to last knot
-          if (!isKnotAdjacentToPrevious(knots[8], tailKnot)) {
-            tailKnot = moveTail(knots[8], tailKnot);
-          }
+          [knots, tailKnot] = moveHead(knots, tailKnot);
         }
         break;
       case "U":
         for (let j = 0; j < distance; j++) {
           knots[0].y++;
-          for (let k = 1; k < knots.length; k++) {
-            if (isKnotAdjacentToPrevious(knots[k - 1], knots[k])) {
-              break;
-            }
-            knots[k] = moveKnot(knots[k - 1], knots[k]);
-          }
-          // check if the tail is no longer next to last knot
-          if (!isKnotAdjacentToPrevious(knots[8], tailKnot)) {
-            tailKnot = moveTail(knots[8], tailKnot);
-          }
+          [knots, tailKnot] = moveHead(knots, tailKnot);
         }
         break;
       case "L":
         for (let j = 0; j < distance; j++) {
           knots[0].x--;
-          for (let k = 1; k < knots.length; k++) {
-            if (isKnotAdjacentToPrevious(knots[k - 1], knots[k])) {
-              break;
-            }
-            knots[k] = moveKnot(knots[k - 1], knots[k]);
-          }
-          // check if the tail is no longer next to last knot
-          if (!isKnotAdjacentToPrevious(knots[8], tailKnot)) {
-            tailKnot = moveTail(knots[8], tailKnot);
-          }
+          [knots, tailKnot] = moveHead(knots, tailKnot);
         }
         break;
       case "D":
         for (let j = 0; j < distance; j++) {
           knots[0].y--;
-          for (let k = 1; k < knots.length; k++) {
-            if (isKnotAdjacentToPrevious(knots[k - 1], knots[k])) {
-              break;
-            }
-            knots[k] = moveKnot(knots[k - 1], knots[k]);
-          }
-          // check if the tail is no longer next to last knot
-          if (!isKnotAdjacentToPrevious(knots[8], tailKnot)) {
-            tailKnot = moveTail(knots[8], tailKnot);
-          }
+          [knots, tailKnot] = moveHead(knots, tailKnot);
         }
         break;
     }
@@ -159,8 +123,27 @@ function isKnotAdjacentToPrevious(
   return false;
 }
 
-function moveKnot(previous: RopeKnot, current: RopeKnot): RopeKnot {
-  const newKnot: RopeKnot = { x: current.x, y: current.y };
+function moveHead(
+  knots: RopeKnot[],
+  tailKnot: RopeTail
+): [RopeKnot[], RopeTail] {
+  for (let k = 1; k < knots.length; k++) {
+    if (isKnotAdjacentToPrevious(knots[k - 1], knots[k])) {
+      break;
+    }
+    knots[k] = moveKnot(knots[k - 1], knots[k]);
+  }
+  // check if the tail is no longer next to last knot
+  if (!isKnotAdjacentToPrevious(knots[8], tailKnot)) {
+    tailKnot = moveKnot(knots[8], tailKnot);
+    tailKnot.seenXY.add(JSON.stringify({ x: tailKnot.x, y: tailKnot.y }));
+  }
+
+  return [knots, tailKnot];
+}
+
+function moveKnot<T extends RopeKnot>(previous: RopeKnot, current: T): T {
+  const newKnot: T = { ...current };
 
   // check for diagonal cases
   if (newKnot.x < previous.x && newKnot.y < previous.y) {
@@ -214,71 +197,6 @@ function moveKnot(previous: RopeKnot, current: RopeKnot): RopeKnot {
   }
 
   return newKnot;
-}
-
-function moveTail(head: RopeKnot, tail: RopeTail): RopeTail {
-  const newTail: RopeTail = { x: tail.x, y: tail.y, seenXY: tail.seenXY };
-
-  // check for diagonal cases
-  if (newTail.x < head.x && newTail.y < head.y) {
-    newTail.x++;
-    newTail.y++;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-
-  if (newTail.x > head.x && newTail.y > head.y) {
-    newTail.x--;
-    newTail.y--;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-
-  if (newTail.x < head.x && newTail.y > head.y) {
-    newTail.x++;
-    newTail.y--;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-
-  if (newTail.x > head.x && newTail.y < head.y) {
-    newTail.x--;
-    newTail.y++;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-
-  // check for horizontal/vertical cases
-  if (newTail.x < head.x) {
-    newTail.x++;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-  if (newTail.x > head.x) {
-    newTail.x--;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-  if (newTail.y < head.y) {
-    newTail.y++;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-  if (newTail.y > head.y) {
-    newTail.y--;
-    newTail.seenXY.add(JSON.stringify({ x: newTail.x, y: newTail.y }));
-
-    return newTail;
-  }
-
-  return newTail;
 }
 
 main();
