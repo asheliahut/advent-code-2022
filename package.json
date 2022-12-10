@@ -20,7 +20,9 @@
     "day7:1": "ts-node day7/noSpacePart1.ts",
     "day7:2": "ts-node day7/noSpacePart2.ts",
     "day9:1": "ts-node day9/ropeBridgePart1.ts",
-    "day9:2": "ts-node day9/ropeBridgePart2.ts"
+    "day9:2": "ts-node day9/ropeBridgePart2.ts",
+    "day10:1": "ts-node day10/cathodeRayPart1.ts",
+    "day10:2": "ts-node day10/cathodeRayPart2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",
