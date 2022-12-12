@@ -26,7 +26,9 @@
     "day10:1": "ts-node day10/cathodeRayPart1.ts",
     "day10:2": "ts-node day10/cathodeRayPart2.ts",
     "day11:1": "ts-node day11/monkeyMiddlePart1.ts",
-    "day11:2": "ts-node day11/monkeyMiddlePart2.ts"
+    "day11:2": "ts-node day11/monkeyMiddlePart2.ts",
+    "day12:1": "ts-node day12/hillClimbingPart1.ts",
+    "day12:2": "ts-node day12/hillClimbingPart2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",
@@ -38,6 +40,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "bignumber.js": "^9.1.1"
+    "bignumber.js": "^9.1.1",
+    "js-graph-algorithms": "^1.0.18"
   }
 }
