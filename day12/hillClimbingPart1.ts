@@ -87,9 +87,6 @@ function parseInputIntoGraph(lines: string[]): WeightedDiGraph {
   return graph;
 }
 
-
-
-
 const main = async () => {
   const input = await readInput();
   const lines = input.split("\n");
