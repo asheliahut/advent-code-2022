@@ -63,27 +63,27 @@ function parseInputIntoGraph(lines: string[]): WeightedDiGraph {
   // add edges to graph
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      const currentNode = matrix[i][j];
-      const leftNode = matrix[i][j - 1];
-      const rightNode = matrix[i][j + 1];
-      const topNode = matrix[i - 1] ? matrix[i - 1][j] : null;
-      const bottomNode = matrix[i + 1] ? matrix[i + 1][j] : null;
+      const currentNodeHeight = matrix[i][j];
+      const leftNodeHeight = matrix[i][j - 1];
+      const rightNodeHeight = matrix[i][j + 1];
+      const topNodeHeight = matrix[i - 1] ? matrix[i - 1][j] : null;
+      const bottomNodeHeight = matrix[i + 1] ? matrix[i + 1][j] : null;
       const currentNodeNum = (i * matrix[i].length) + j;
       const leftNodeNum = (i * matrix[i].length) + j - 1;
       const rightNodeNum = (i * matrix[i].length) + j + 1;
       const topNodeNum = ((i - 1) * matrix[i].length) + j;
       const bottomNodeNum = ((i + 1) * matrix[i].length) + j;
 
-      if (leftNode <= currentNode || leftNode === (currentNode + 1)) {
+      if (leftNodeHeight <= currentNodeHeight || leftNodeHeight === (currentNodeHeight + 1)) {
         graph.addEdge(new Edge(currentNodeNum, leftNodeNum, 1));
       }
-      if (rightNode <= currentNode || rightNode === (currentNode + 1)) {
+      if (rightNodeHeight <= currentNodeHeight || rightNodeHeight === (currentNodeHeight + 1)) {
         graph.addEdge(new Edge(currentNodeNum, rightNodeNum, 1));
       }
-      if (topNode && (topNode <= currentNode || topNode === (currentNode + 1))) {
+      if (topNodeHeight && (topNodeHeight <= currentNodeHeight || topNodeHeight === (currentNodeHeight + 1))) {
         graph.addEdge(new Edge(currentNodeNum, topNodeNum, 1));
       }
-      if (bottomNode && (bottomNode <= currentNode || bottomNode === (currentNode + 1))) {
+      if (bottomNodeHeight && (bottomNodeHeight <= currentNodeHeight || bottomNodeHeight === (currentNodeHeight + 1))) {
         graph.addEdge(new Edge(currentNodeNum, bottomNodeNum, 1));
       }
     }
