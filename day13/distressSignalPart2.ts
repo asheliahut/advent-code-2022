@@ -1,5 +1,5 @@
 // read the input from puzzleInput.txt
-// advent of code 2022 day 13 part 1
+// advent of code 2022 day 13 part 2
 
 import { readFileSync, writeFileSync } from "fs";
 import * as path from "path";
@@ -10,7 +10,7 @@ const readInput = async () => {
 };
 
 const writeOutput = async (output: string) => {
-  await writeFileSync(path.join(__dirname, "distressSignalPart1.txt"), output);
+  await writeFileSync(path.join(__dirname, "distressSignalPart2.txt"), output);
 };
 
 type Packet = number|Packet[];
@@ -45,19 +45,18 @@ function comparePair(a: Packet, b: Packet): number {
     // console.log(b);
     for (let i = 0; i < Math.max(a.length,b.length); i++) {
       if (b[i] === undefined) {
-        return -1;
-      } else if (a[i] === undefined) {
-        console.log('hiii');
         return 1;
+      } else if (a[i] === undefined) {
+        return -1;
       }
 
       let result = comparePair(a[i], b[i]);
       // console.log(`a[i]: ${a[i]}, b[i]: ${b[i]}, result: ${result}`);
       
-      if (result === -1) {
-        return -1;
-      } else if (result === 1) {
+      if (result === 1) {
         return 1;
+      } else if (result === -1) {
+        return -1;
       }
     }
 
@@ -69,11 +68,11 @@ function comparePair(a: Packet, b: Packet): number {
     return comparePair([a], b);
   } else {
     if (a < b) {
-      return 1;
+      return -1;
     } else if (a === b) {
       return 0;
     } else {
-      return -1;
+      return 1;
     }
   }
 }
@@ -88,25 +87,33 @@ const main = async () => {
 
   // console.log(parsedInput);
 
-  // loop through parsedInput
-  for (let i = 0; i < parsedInput.length; i++) {
-    const currentArray = parsedInput[i];
-    if(i === 5){
-      console.log(currentArray);
-    }
-
-    const areArraysEqual = comparePair(currentArray[0], currentArray[1]) >= 0;
-
-    console.log(`areArraysEqual: ${areArraysEqual}, currentIndex: ${i + 1}`);
-    if (areArraysEqual) {
-      sumOfIndidicies += i + 1;
-    }
-
-    
+  // sort parsedInput
+  const distressPacket1: Packet = [[6]];
+  const distressPacket2: Packet = [[2]];
+  let distressPacket1Location: number = 0;
+  let distressPacket2Location: number = 0;
   
-  }
+  const sortedFlatParsedInput = parsedInput.flat();
+  sortedFlatParsedInput.push(distressPacket1);
+  sortedFlatParsedInput.push(distressPacket2);
+  sortedFlatParsedInput.sort(comparePair);
+  console.log(sortedFlatParsedInput);
 
-  output = `Sum of indicies: ${sumOfIndidicies}`;
+  // loop through sortedFlatParsedInput
+  for (let i = 0; i < sortedFlatParsedInput.length; i++) {
+    if (JSON.stringify(sortedFlatParsedInput[i]) === JSON.stringify(distressPacket1)) {
+      distressPacket1Location = i + 1;
+    } else if (JSON.stringify(sortedFlatParsedInput[i]) === JSON.stringify(distressPacket2)) {
+      distressPacket2Location = i + 1;
+    }
+  }
+  
+
+  const decoderKey = distressPacket1Location * distressPacket2Location;
+
+  // loop through parsedInput
+
+  output = `Decoder Key: ${decoderKey}`;
   console.log(output);
   await writeOutput(output);
 };
