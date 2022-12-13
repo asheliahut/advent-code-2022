@@ -50,7 +50,7 @@ function comparePair(a: Packet, b: Packet): number {
       }
 
       let result = comparePair(a[i], b[i]);
-      
+
       if (result === -1) {
         return -1;
       } else if (result === 1) {
@@ -95,7 +95,6 @@ const main = async () => {
     if (areArraysEqual) {
       sumOfIndidicies += i + 1;
     }
-
   }
 
   output = `Sum of indicies: ${sumOfIndidicies}`;
