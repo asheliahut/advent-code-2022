@@ -41,8 +41,6 @@ function parseInput(lines: string[]): Packet[][] {
 function comparePair(a: Packet, b: Packet): number {
   // let result: number = 0;
   if (Array.isArray(a) && Array.isArray(b)) {
-    // console.log(a);
-    // console.log(b);
     for (let i = 0; i < Math.max(a.length,b.length); i++) {
       if (b[i] === undefined) {
         return 1;
@@ -51,7 +49,6 @@ function comparePair(a: Packet, b: Packet): number {
       }
 
       let result = comparePair(a[i], b[i]);
-      // console.log(`a[i]: ${a[i]}, b[i]: ${b[i]}, result: ${result}`);
       
       if (result === 1) {
         return 1;
@@ -60,8 +57,7 @@ function comparePair(a: Packet, b: Packet): number {
       }
     }
 
-    return 0;
-  
+    return 0;  
   } else if (Array.isArray(a) && !Array.isArray(b)) {
     return comparePair(a, [b]);
   } else if (!Array.isArray(a) && Array.isArray(b)) {
@@ -80,12 +76,8 @@ function comparePair(a: Packet, b: Packet): number {
 const main = async () => {
   const input = await readInput();
   const lines = input.split("\n");
-  let output: string = "";
-  let sumOfIndidicies: number = 0;
-
   const parsedInput = parseInput(lines);
-
-  // console.log(parsedInput);
+  let output: string = "";
 
   // sort parsedInput
   const distressPacket1: Packet = [[6]];
@@ -108,10 +100,7 @@ const main = async () => {
     }
   }
   
-
   const decoderKey = distressPacket1Location * distressPacket2Location;
-
-  // loop through parsedInput
 
   output = `Decoder Key: ${decoderKey}`;
   console.log(output);

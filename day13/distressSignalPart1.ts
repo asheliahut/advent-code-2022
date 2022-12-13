@@ -41,8 +41,6 @@ function parseInput(lines: string[]): Packet[][] {
 function comparePair(a: Packet, b: Packet): number {
   // let result: number = 0;
   if (Array.isArray(a) && Array.isArray(b)) {
-    // console.log(a);
-    // console.log(b);
     for (let i = 0; i < Math.max(a.length,b.length); i++) {
       if (b[i] === undefined) {
         return -1;
@@ -52,7 +50,6 @@ function comparePair(a: Packet, b: Packet): number {
       }
 
       let result = comparePair(a[i], b[i]);
-      // console.log(`a[i]: ${a[i]}, b[i]: ${b[i]}, result: ${result}`);
       
       if (result === -1) {
         return -1;
@@ -86,8 +83,6 @@ const main = async () => {
 
   const parsedInput = parseInput(lines);
 
-  // console.log(parsedInput);
-
   // loop through parsedInput
   for (let i = 0; i < parsedInput.length; i++) {
     const currentArray = parsedInput[i];
@@ -97,13 +92,10 @@ const main = async () => {
 
     const areArraysEqual = comparePair(currentArray[0], currentArray[1]) >= 0;
 
-    console.log(`areArraysEqual: ${areArraysEqual}, currentIndex: ${i + 1}`);
     if (areArraysEqual) {
       sumOfIndidicies += i + 1;
     }
 
-    
-  
   }
 
   output = `Sum of indicies: ${sumOfIndidicies}`;
