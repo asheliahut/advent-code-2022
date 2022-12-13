@@ -14,9 +14,9 @@ const writeOutput = async (output: string) => {
 };
 
 const cycleForInstruction: any = {
-  "noop": 1,
-  "addx": 2,
-}
+  noop: 1,
+  addx: 2,
+};
 
 const signalStrengths: number[] = [19, 59, 99, 139, 179, 219];
 
@@ -35,11 +35,11 @@ class CPU {
 
   public get sixSignalStrengthsSum(): number {
     return this.registerXAtSignalStrength.reduce((acc, cur, idx) => {
-      return acc + (cur * (signalStrengths[idx] + 1));
+      return acc + cur * (signalStrengths[idx] + 1);
     }, 0);
   }
 
-  private nextInstruction(): string|undefined {
+  private nextInstruction(): string | undefined {
     const instruction = this.instructions.shift();
     if (!instruction) {
       return undefined;
@@ -51,7 +51,7 @@ class CPU {
 
   private executeInstruction(instruction: string) {
     const curInstruction = instruction.split(" ");
-    switch(curInstruction[0]) {
+    switch (curInstruction[0]) {
       case "noop":
         break;
       case "addx":
@@ -63,13 +63,13 @@ class CPU {
   }
 
   public execute() {
-    while(this.nextInstruction()) {
+    while (this.nextInstruction()) {
       const curInstruction = this.currentInstruction.split(" ")[0];
-      for(let i = 0; i < cycleForInstruction[curInstruction]; i++) {
-        if(signalStrengths.includes(this.cycle)) {
+      for (let i = 0; i < cycleForInstruction[curInstruction]; i++) {
+        if (signalStrengths.includes(this.cycle)) {
           this.registerXAtSignalStrength.push(this.registerX);
         }
-        
+
         this.cycle++;
       }
 

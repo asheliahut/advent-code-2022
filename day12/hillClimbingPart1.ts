@@ -13,23 +13,24 @@ const readInput = async () => {
 const writeOutput = async (output: string) => {
   await writeFileSync(path.join(__dirname, "hillClimbingPart1.txt"), output);
 };
-const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode('a'.charCodeAt(0) + i));
-let elevationMap: any = {}
+const letters = Array.from({ length: 26 }, (_, i) =>
+  String.fromCharCode("a".charCodeAt(0) + i)
+);
+let elevationMap: any = {};
 let startingNode: number = 0;
 let endNode: number = 0;
 letters.forEach((letter, index) => {
   elevationMap[letter] = index + 1;
-})
+});
 
 console.log(elevationMap);
 
 function parseInputIntoGraph(lines: string[]): WeightedDiGraph {
-  let numNodes: number = 0
+  let numNodes: number = 0;
   lines.forEach((line, index) => {
     numNodes += line.length;
   });
   const graph: WeightedDiGraph = new WeightedDiGraph(numNodes);
-
 
   let numTraversed: number = 0;
   let matrix: number[][] = [];
@@ -64,22 +65,36 @@ function parseInputIntoGraph(lines: string[]): WeightedDiGraph {
       const rightNodeHeight = matrix[i][j + 1];
       const topNodeHeight = matrix[i - 1] ? matrix[i - 1][j] : null;
       const bottomNodeHeight = matrix[i + 1] ? matrix[i + 1][j] : null;
-      const currentNodeNum = (i * matrix[i].length) + j;
-      const leftNodeNum = (i * matrix[i].length) + j - 1;
-      const rightNodeNum = (i * matrix[i].length) + j + 1;
-      const topNodeNum = ((i - 1) * matrix[i].length) + j;
-      const bottomNodeNum = ((i + 1) * matrix[i].length) + j;
+      const currentNodeNum = i * matrix[i].length + j;
+      const leftNodeNum = i * matrix[i].length + j - 1;
+      const rightNodeNum = i * matrix[i].length + j + 1;
+      const topNodeNum = (i - 1) * matrix[i].length + j;
+      const bottomNodeNum = (i + 1) * matrix[i].length + j;
 
-      if (leftNodeHeight <= currentNodeHeight || leftNodeHeight === (currentNodeHeight + 1)) {
+      if (
+        leftNodeHeight <= currentNodeHeight ||
+        leftNodeHeight === currentNodeHeight + 1
+      ) {
         graph.addEdge(new Edge(currentNodeNum, leftNodeNum, 1));
       }
-      if (rightNodeHeight <= currentNodeHeight || rightNodeHeight === (currentNodeHeight + 1)) {
+      if (
+        rightNodeHeight <= currentNodeHeight ||
+        rightNodeHeight === currentNodeHeight + 1
+      ) {
         graph.addEdge(new Edge(currentNodeNum, rightNodeNum, 1));
       }
-      if (topNodeHeight && (topNodeHeight <= currentNodeHeight || topNodeHeight === (currentNodeHeight + 1))) {
+      if (
+        topNodeHeight &&
+        (topNodeHeight <= currentNodeHeight ||
+          topNodeHeight === currentNodeHeight + 1)
+      ) {
         graph.addEdge(new Edge(currentNodeNum, topNodeNum, 1));
       }
-      if (bottomNodeHeight && (bottomNodeHeight <= currentNodeHeight || bottomNodeHeight === (currentNodeHeight + 1))) {
+      if (
+        bottomNodeHeight &&
+        (bottomNodeHeight <= currentNodeHeight ||
+          bottomNodeHeight === currentNodeHeight + 1)
+      ) {
         graph.addEdge(new Edge(currentNodeNum, bottomNodeNum, 1));
       }
     }

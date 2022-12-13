@@ -19,7 +19,7 @@ const operators: any = {
   "-": (a: BigNumber, b: BigNumber) => a.minus(b),
   "*": (a: BigNumber, b: BigNumber) => a.times(b),
   "/": (a: BigNumber, b: BigNumber) => a.dividedBy(b),
-}
+};
 
 let lcm: BigNumber = new BigNumber(1);
 let lcmNumbers: Set<number> = new Set();
@@ -34,7 +34,15 @@ class Monkey {
   private falseMonkeyNum: number = 0;
   public timesInspected: number = 0;
 
-  constructor(monkeyId: number, items: BigNumber[], operationOperator: string, operationNumber: BigNumber, testDivisibilityNum: BigNumber, trueMonkeyNum: number, falseMonkeyNum: number) {
+  constructor(
+    monkeyId: number,
+    items: BigNumber[],
+    operationOperator: string,
+    operationNumber: BigNumber,
+    testDivisibilityNum: BigNumber,
+    trueMonkeyNum: number,
+    falseMonkeyNum: number
+  ) {
     this.monkeyId = monkeyId;
     this.items = items;
     this.operationOperator = operationOperator;
@@ -54,15 +62,22 @@ class Monkey {
     for (const item of newMonkeyItems) {
       const tempCheckOperator: BigNumber = new BigNumber(-1);
       const tempCheckMod: BigNumber = new BigNumber(0);
-      const tempOperationNumber: BigNumber = this.operationNumber.eq(tempCheckOperator) ? item : this.operationNumber;
-      const newWorryLevel: BigNumber = operators[this.operationOperator](item, tempOperationNumber).mod(lcm);
+      const tempOperationNumber: BigNumber = this.operationNumber.eq(
+        tempCheckOperator
+      )
+        ? item
+        : this.operationNumber;
+      const newWorryLevel: BigNumber = operators[this.operationOperator](
+        item,
+        tempOperationNumber
+      ).mod(lcm);
 
       if (newWorryLevel.mod(this.testDivisibilityNum).eq(tempCheckMod)) {
         monkeys[this.trueMonkeyNum].addItem(newWorryLevel);
       } else {
         monkeys[this.falseMonkeyNum].addItem(newWorryLevel);
       }
-      
+
       // remove the item from the current monkey's items
       this.items.shift();
       this.timesInspected++;
@@ -80,17 +95,22 @@ function getTwoHighestInspectedMonkeys(monkeys: Monkey[]): number[] {
   const highestInspectedMonkey = monkeys[0];
   const secondHighestInspectedMonkey = monkeys[1];
 
-  return [highestInspectedMonkey.timesInspected, secondHighestInspectedMonkey.timesInspected];
+  return [
+    highestInspectedMonkey.timesInspected,
+    secondHighestInspectedMonkey.timesInspected,
+  ];
 }
 
 function lcm_two_numbers(x: BigNumber, y: BigNumber) {
-  return (x.eq(0) || y.eq(0)) ? new BigNumber(0) : x.multipliedBy(y).abs().div(gcd_two_numbers(x, y));
+  return x.eq(0) || y.eq(0)
+    ? new BigNumber(0)
+    : x.multipliedBy(y).abs().div(gcd_two_numbers(x, y));
 }
 
 function gcd_two_numbers(x: BigNumber, y: BigNumber) {
   x = x.abs();
   y = y.abs();
-  while(!y.eq(0)) {
+  while (!y.eq(0)) {
     var t = y;
     y = x.mod(y);
     x = t;
@@ -106,7 +126,7 @@ const main = async () => {
   let curMonkeyInput: string[] = [];
   let monkeys: Monkey[] = [];
 
-  for(let i = 0; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     // console.log(line);
     if (line === "") {
@@ -118,11 +138,14 @@ const main = async () => {
     curMonkeyInput.push(line);
   }
 
-  lcm = Array.from(lcmNumbers).reduce((a, b) => lcm_two_numbers(new BigNumber(a), new BigNumber(b)), new BigNumber(1));
+  lcm = Array.from(lcmNumbers).reduce(
+    (a, b) => lcm_two_numbers(new BigNumber(a), new BigNumber(b)),
+    new BigNumber(1)
+  );
 
   // conduct 20 rounds of monkey business
   for (let i = 0; i < 10000; i++) {
-    for(let j = 0; j < monkeys.length; j++) {
+    for (let j = 0; j < monkeys.length; j++) {
       monkeys = monkeys[j].conductMonkeyBusiness(monkeys);
     }
     console.log(`Round ${i} complete!`);
@@ -131,9 +154,13 @@ const main = async () => {
   console.log(monkeys);
 
   // get the two monkeys that have been inspected the most
-  const [highestInspectedMonkey, secondHighestInspectedMonkey] = getTwoHighestInspectedMonkeys(monkeys);
-  console.log(`Highest Inspected Monkey: ${highestInspectedMonkey}, Second Highest Inspected Monkey: ${secondHighestInspectedMonkey}`);
-  const monkeyBusinessLevel = highestInspectedMonkey * secondHighestInspectedMonkey;
+  const [highestInspectedMonkey, secondHighestInspectedMonkey] =
+    getTwoHighestInspectedMonkeys(monkeys);
+  console.log(
+    `Highest Inspected Monkey: ${highestInspectedMonkey}, Second Highest Inspected Monkey: ${secondHighestInspectedMonkey}`
+  );
+  const monkeyBusinessLevel =
+    highestInspectedMonkey * secondHighestInspectedMonkey;
 
   output = `Monkey Business Level after 20 rounds: ${monkeyBusinessLevel}`;
   console.log(output);
@@ -149,18 +176,26 @@ function parseMonkey(lines: string[]): Monkey {
   let trueTest: number = 0;
   let falseTest: number = 0;
 
-  for(let i = 0; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (i === 0) {
       const monkeyIdPlusColon: string = line.split(" ")[1];
-      monkeyId = parseInt(monkeyIdPlusColon.substring(0, monkeyIdPlusColon.indexOf(":")));
+      monkeyId = parseInt(
+        monkeyIdPlusColon.substring(0, monkeyIdPlusColon.indexOf(":"))
+      );
     } else if (i === 1) {
       // parse the comma and space seperated list of numbers with a prefix of "Starting items: "
-      startingItemsWorryLevels = line.trim().split(" ")[2].split(",").map((item) => new BigNumber(item));
+      startingItemsWorryLevels = line
+        .trim()
+        .split(" ")[2]
+        .split(",")
+        .map((item) => new BigNumber(item));
     } else if (i === 2) {
       const lineSplit: string[] = line.trim().split(" ");
       operationOperator = lineSplit[4];
-      operationNumber = new BigNumber(lineSplit[5] === "old" ? "-1" : lineSplit[5]);
+      operationNumber = new BigNumber(
+        lineSplit[5] === "old" ? "-1" : lineSplit[5]
+      );
     } else if (i === 3) {
       const lineSplit: string[] = line.trim().split(" ");
       testDivisibilityNum = new BigNumber(lineSplit[3]);
@@ -174,7 +209,15 @@ function parseMonkey(lines: string[]): Monkey {
     }
   }
 
-  return new Monkey(monkeyId, startingItemsWorryLevels, operationOperator, operationNumber, testDivisibilityNum, trueTest, falseTest);
+  return new Monkey(
+    monkeyId,
+    startingItemsWorryLevels,
+    operationOperator,
+    operationNumber,
+    testDivisibilityNum,
+    trueTest,
+    falseTest
+  );
 }
 
 main();

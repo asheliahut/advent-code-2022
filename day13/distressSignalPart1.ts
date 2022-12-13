@@ -13,7 +13,7 @@ const writeOutput = async (output: string) => {
   await writeFileSync(path.join(__dirname, "distressSignalPart1.txt"), output);
 };
 
-type Packet = number|Packet[];
+type Packet = number | Packet[];
 
 // parse the input into 2 lists of numbers breaking on the blank line
 // the input is in the form of "[[1],[2,3,4]]"
@@ -41,11 +41,11 @@ function parseInput(lines: string[]): Packet[][] {
 function comparePair(a: Packet, b: Packet): number {
   // let result: number = 0;
   if (Array.isArray(a) && Array.isArray(b)) {
-    for (let i = 0; i < Math.max(a.length,b.length); i++) {
+    for (let i = 0; i < Math.max(a.length, b.length); i++) {
       if (b[i] === undefined) {
         return -1;
       } else if (a[i] === undefined) {
-        console.log('hiii');
+        console.log("hiii");
         return 1;
       }
 
@@ -59,7 +59,6 @@ function comparePair(a: Packet, b: Packet): number {
     }
 
     return 0;
-  
   } else if (Array.isArray(a) && !Array.isArray(b)) {
     return comparePair(a, [b]);
   } else if (!Array.isArray(a) && Array.isArray(b)) {
@@ -86,7 +85,7 @@ const main = async () => {
   // loop through parsedInput
   for (let i = 0; i < parsedInput.length; i++) {
     const currentArray = parsedInput[i];
-    if(i === 5){
+    if (i === 5) {
       console.log(currentArray);
     }
 

@@ -14,8 +14,8 @@ const writeOutput = async (output: string) => {
 };
 
 const cycleForInstruction: any = {
-  "noop": 1,
-  "addx": 2,
+  noop: 1,
+  addx: 2,
 };
 
 class CPU {
@@ -35,7 +35,7 @@ class CPU {
     return this.CRT.join("\n");
   }
 
-  private nextInstruction(): string|undefined {
+  private nextInstruction(): string | undefined {
     const instruction = this.instructions.shift();
     if (!instruction) {
       return undefined;
@@ -47,7 +47,7 @@ class CPU {
 
   private executeInstruction(instruction: string) {
     const curInstruction = instruction.split(" ");
-    switch(curInstruction[0]) {
+    switch (curInstruction[0]) {
       case "noop":
         break;
       case "addx":
@@ -59,7 +59,7 @@ class CPU {
   }
 
   private drawPixel() {
-    const crtIdx = Math.floor((this.cycle) / 40);
+    const crtIdx = Math.floor(this.cycle / 40);
     const pixelStart = this.registerX - 1;
     const pixelEnd = this.registerX + 1;
     const pixelPlacement = this.cycle % 40;
@@ -72,9 +72,9 @@ class CPU {
   }
 
   public execute() {
-    while(this.nextInstruction()) {
+    while (this.nextInstruction()) {
       const curInstruction = this.currentInstruction.split(" ")[0];
-      for(let i = 0; i < cycleForInstruction[curInstruction]; i++) {
+      for (let i = 0; i < cycleForInstruction[curInstruction]; i++) {
         this.drawPixel();
         this.cycle++;
       }

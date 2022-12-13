@@ -13,7 +13,7 @@ const writeOutput = async (output: string) => {
   await writeFileSync(path.join(__dirname, "distressSignalPart2.txt"), output);
 };
 
-type Packet = number|Packet[];
+type Packet = number | Packet[];
 
 // parse the input into 2 lists of numbers breaking on the blank line
 // the input is in the form of "[[1],[2,3,4]]"
@@ -41,7 +41,7 @@ function parseInput(lines: string[]): Packet[][] {
 function comparePair(a: Packet, b: Packet): number {
   // let result: number = 0;
   if (Array.isArray(a) && Array.isArray(b)) {
-    for (let i = 0; i < Math.max(a.length,b.length); i++) {
+    for (let i = 0; i < Math.max(a.length, b.length); i++) {
       if (b[i] === undefined) {
         return 1;
       } else if (a[i] === undefined) {
@@ -49,7 +49,7 @@ function comparePair(a: Packet, b: Packet): number {
       }
 
       let result = comparePair(a[i], b[i]);
-      
+
       if (result === 1) {
         return 1;
       } else if (result === -1) {
@@ -57,7 +57,7 @@ function comparePair(a: Packet, b: Packet): number {
       }
     }
 
-    return 0;  
+    return 0;
   } else if (Array.isArray(a) && !Array.isArray(b)) {
     return comparePair(a, [b]);
   } else if (!Array.isArray(a) && Array.isArray(b)) {
@@ -84,7 +84,7 @@ const main = async () => {
   const distressPacket2: Packet = [[2]];
   let distressPacket1Location: number = 0;
   let distressPacket2Location: number = 0;
-  
+
   const sortedFlatParsedInput = parsedInput.flat();
   sortedFlatParsedInput.push(distressPacket1);
   sortedFlatParsedInput.push(distressPacket2);
@@ -93,13 +93,19 @@ const main = async () => {
 
   // loop through sortedFlatParsedInput
   for (let i = 0; i < sortedFlatParsedInput.length; i++) {
-    if (JSON.stringify(sortedFlatParsedInput[i]) === JSON.stringify(distressPacket1)) {
+    if (
+      JSON.stringify(sortedFlatParsedInput[i]) ===
+      JSON.stringify(distressPacket1)
+    ) {
       distressPacket1Location = i + 1;
-    } else if (JSON.stringify(sortedFlatParsedInput[i]) === JSON.stringify(distressPacket2)) {
+    } else if (
+      JSON.stringify(sortedFlatParsedInput[i]) ===
+      JSON.stringify(distressPacket2)
+    ) {
       distressPacket2Location = i + 1;
     }
   }
-  
+
   const decoderKey = distressPacket1Location * distressPacket2Location;
 
   output = `Decoder Key: ${decoderKey}`;
