@@ -28,7 +28,9 @@
     "day11:1": "ts-node day11/monkeyMiddlePart1.ts",
     "day11:2": "ts-node day11/monkeyMiddlePart2.ts",
     "day12:1": "ts-node day12/hillClimbingPart1.ts",
-    "day12:2": "ts-node day12/hillClimbingPart2.ts"
+    "day12:2": "ts-node day12/hillClimbingPart2.ts",
+    "day13:1": "ts-node day13/distressSignalPart1.ts",
+    "day13:2": "ts-node day13/distressSignalPart2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",

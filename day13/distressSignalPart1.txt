@@ -1,0 +1,1 @@
+Sum of indicies: 23
