@@ -1,5 +1,5 @@
 // read the input from puzzleInput.txt
-// advent of code 2022 day 15 part 1
+// advent of code 2022 day 18 part 1
 
 import { readFileSync, writeFileSync } from "fs";
 import * as path from "path";
