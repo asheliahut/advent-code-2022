@@ -32,7 +32,9 @@
     "day13:1": "ts-node day13/distressSignalPart1.ts",
     "day13:2": "ts-node day13/distressSignalPart2.ts",
     "day14:1": "ts-node day14/RegolithPart1.ts",
-    "day14:2": "ts-node day14/RegolithPart2.ts"
+    "day14:2": "ts-node day14/RegolithPart2.ts",
+    "day15:1": "ts-node day15/Part1.ts",
+    "day15:2": "ts-node day15/Part2.ts"
   },
   "keywords": [],
   "author": "Ashley Hutson",
